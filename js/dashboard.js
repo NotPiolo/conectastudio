@@ -1,37 +1,52 @@
-// Configuración de Firebase (reemplaza con tus propios datos)
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO.firebaseapp.com",
-    projectId: "TU_PROYECTO",
-    storageBucket: "TU_PROYECTO.appspot.com",
-    messagingSenderId: "TU_SENDER_ID",
-    appId: "TU_APP_ID"
+  apiKey: "AIzaSyD0Hk8OWrqJroj5vwvxsjRbmRwlgKlXNbU",
+  authDomain: "conectastudio-f6f25.firebaseapp.com",
+  projectId: "conectastudio-f6f25",
+  storageBucket: "conectastudio-f6f25.appspot.com",
+  messagingSenderId: "147811460785",
+  appId: "1:147811460785:web:08a9c5e6b543d6bc7a2490"
 };
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Configuración de FirebaseUI
+// Configuración mejorada de FirebaseUI
 const uiConfig = {
-    signInSuccessUrl: 'dashboard.html',
-    signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    ],
-    tosUrl: '<your-tos-url>',
-    privacyPolicyUrl: '<your-privacy-policy-url>'
+  signInSuccessUrl: window.location.origin + '/conectastudio/dashboard.html',
+  signInOptions: [
+    {
+      provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      customParameters: {
+        prompt: 'select_account'
+      }
+    }
+  ],
+  callbacks: {
+    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+      // Verificar autenticación
+      if (authResult.user) {
+        console.log('Usuario autenticado:', authResult.user.email);
+        // Redirigir manualmente
+        window.location.href = window.location.origin + '/conectastudio/dashboard.html';
+      }
+      return false; // Evitar redirección automática
+    },
+    uiShown: function() {
+      document.getElementById('loader').style.display = 'none';
+    }
+  }
 };
 
 // Inicializar FirebaseUI
 const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-// Manejar el estado de autenticación
+// Manejar estado de autenticación
 firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // Usuario autenticado, redirigir al dashboard
-        window.location.href = 'dashboard.html';
-    } else {
-        // Mostrar el widget de autenticación
-        ui.start('#firebaseui-auth-container', uiConfig);
-        document.getElementById('loader').style.display = 'none';
-    }
+  if (user) {
+    console.log('Redirigiendo usuario autenticado...');
+    window.location.href = window.location.origin + '/conectastudio/dashboard.html';
+  } else {
+    ui.start('#firebaseui-auth-container', uiConfig);
+    document.getElementById('loader').style.display = 'none';
+  }
 });

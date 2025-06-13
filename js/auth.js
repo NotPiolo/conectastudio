@@ -12,7 +12,7 @@ firebase.initializeApp(firebaseConfig);
 
 // Configuración mejorada de FirebaseUI
 const uiConfig = {
-  signInSuccessUrl: '/dashboard.html',
+  signInSuccessUrl: window.location.origin + '/conectastudio/dashboard.html',
   signInOptions: [
     {
       provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -23,13 +23,11 @@ const uiConfig = {
   ],
   callbacks: {
     signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-      // Verificar si el usuario está autenticado
+      // Verificar autenticación
       if (authResult.user) {
         console.log('Usuario autenticado:', authResult.user.email);
-        // Redirigir después de 1 segundo para asegurar la sesión
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1000);
+        // Redirigir manualmente
+        window.location.href = window.location.origin + '/conectastudio/dashboard.html';
       }
       return false; // Evitar redirección automática
     },
@@ -40,21 +38,15 @@ const uiConfig = {
 };
 
 // Inicializar FirebaseUI
-let ui = new firebaseui.auth.AuthUI(firebase.auth());
+const ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 // Manejar estado de autenticación
 firebase.auth().onAuthStateChanged((user) => {
-  const authContainer = document.getElementById('firebaseui-auth-container');
-  const loader = document.getElementById('loader');
-  
   if (user) {
-    console.log('Usuario ya autenticado:', user.email);
-    window.location.href = 'dashboard.html';
+    console.log('Redirigiendo usuario autenticado...');
+    window.location.href = window.location.origin + '/conectastudio/dashboard.html';
   } else {
-    if (authContainer && loader) {
-      authContainer.style.display = 'block';
-      loader.style.display = 'none';
-      ui.start('#firebaseui-auth-container', uiConfig);
-    }
+    ui.start('#firebaseui-auth-container', uiConfig);
+    document.getElementById('loader').style.display = 'none';
   }
 });
