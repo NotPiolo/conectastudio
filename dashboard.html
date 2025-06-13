@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ConectaStudio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="dashboard">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Conecta<span>Studio</span></h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="user-profile">
+                    <img id="user-avatar" src="images/default-avatar.png" alt="Usuario">
+                    <span id="user-name">Usuario</span>
+                </div>
+                
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> Materias</a></li>
+                    <li><a href="#"><i class="fas fa-tasks"></i> Tareas</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Calendario</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Grupos</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>
+                </ul>
+                
+                <button id="sign-out" class="sign-out-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1 id="dashboard-title">Bienvenido</h1>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Buscar...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="content-grid">
+                <!-- Materias -->
+                <section class="content-card subjects-card">
+                    <div class="card-header">
+                        <h2>Tus Materias</h2>
+                        <a href="#" class="see-all">Ver todas</a>
+                    </div>
+                    <div class="subjects-grid">
+                        <div class="subject-card turquoise-bg">
+                            <h3>Matemáticas</h3>
+                            <p>Prof. Laura Pérez</p>
+                            <div class="subject-progress">
+                                <progress value="75" max="100"></progress>
+                                <span>75% completado</span>
+                            </div>
+                        </div>
+                        <div class="subject-card yellow-bg">
+                            <h3>Historia</h3>
+                            <p>Prof. Carlos Gómez</p>
+                            <div class="subject-progress">
+                                <progress value="40" max="100"></progress>
+                                <span>40% completado</span>
+                            </div>
+                        </div>
+                        <div class="subject-card turquoise-bg">
+                            <h3>Ciencias</h3>
+                            <p>Prof. Ana Rodríguez</p>
+                            <div class="subject-progress">
+                                <progress value="60" max="100"></progress>
+                                <span>60% completado</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Tareas Pendientes -->
+                <section class="content-card tasks-card">
+                    <div class="card-header">
+                        <h2>Tareas Pendientes</h2>
+                        <a href="#" class="see-all">Ver todas</a>
+                    </div>
+                    <ul class="tasks-list">
+                        <li>
+                            <div class="task-info">
+                                <h3>Tarea de Matemáticas</h3>
+                                <p>Ejercicios de álgebra - Vence mañana</p>
+                            </div>
+                            <button class="task-action">Entregar</button>
+                        </li>
+                        <li>
+                            <div class="task-info">
+                                <h3>Ensayo de Historia</h3>
+                                <p>Revolución Industrial - Vence en 3 días</p>
+                            </div>
+                            <button class="task-action">Entregar</button>
+                        </li>
+                        <li>
+                            <div class="task-info">
+                                <h3>Proyecto de Ciencias</h3>
+                                <p>Experimento de física - Vence en 1 semana</p>
+                            </div>
+                            <button class="task-action">Entregar</button>
+                        </li>
+                    </ul>
+                </section>
+                
+                <!-- Calendario -->
+                <section class="content-card calendar-card">
+                    <div class="card-header">
+                        <h2>Calendario</h2>
+                        <a href="#" class="see-all">Ver completo</a>
+                    </div>
+                    <div class="calendar-widget">
+                        <div class="calendar-header">
+                            <button><i class="fas fa-chevron-left"></i></button>
+                            <h3>Junio 2023</h3>
+                            <button><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-grid">
+                            <!-- Días de la semana -->
+                            <div class="day-name">Lun</div>
+                            <div class="day-name">Mar</div>
+                            <div class="day-name">Mié</div>
+                            <div class="day-name">Jue</div>
+                            <div class="day-name">Vie</div>
+                            <div class="day-name">Sáb</div>
+                            <div class="day-name">Dom</div>
+                            
+                            <!-- Días del mes -->
+                            <div class="day">29</div>
+                            <div class="day">30</div>
+                            <div class="day">31</div>
+                            <div class="day">1</div>
+                            <div class="day">2</div>
+                            <div class="day">3</div>
+                            <div class="day">4</div>
+                            <div class="day">5</div>
+                            <div class="day">6</div>
+                            <div class="day">7</div>
+                            <div class="day">8</div>
+                            <div class="day">9</div>
+                            <div class="day">10</div>
+                            <div class="day">11</div>
+                            <div class="day">12</div>
+                            <div class="day active">13</div>
+                            <div class="day">14</div>
+                            <div class="day">15</div>
+                            <div class="day">16</div>
+                            <div class="day">17</div>
+                            <div class="day">18</div>
+                            <div class="day">19</div>
+                            <div class="day">20</div>
+                            <div class="day">21</div>
+                            <div class="day">22</div>
+                            <div class="day">23</div>
+                            <div class="day">24</div>
+                            <div class="day">25</div>
+                            <div class="day">26</div>
+                            <div class="day">27</div>
+                            <div class="day">28</div>
+                            <div class="day">29</div>
+                            <div class="day">30</div>
+                        </div>
+                    </div>
+                    <div class="calendar-events">
+                        <h3>Eventos Hoy</h3>
+                        <ul>
+                            <li><span class="event-time">10:00</span> Clase de Matemáticas</li>
+                            <li><span class="event-time">14:00</span> Entrega de Tarea</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <!-- Anuncios -->
+                <section class="content-card announcements-card">
+                    <div class="card-header">
+                        <h2>Anuncios Recientes</h2>
+                        <a href="#" class="see-all">Ver todos</a>
+                    </div>
+                    <ul class="announcements-list">
+                        <li>
+                            <div class="announcement-header">
+                                <img src="images/professor1.jpg" alt="Profesor">
+                                <div>
+                                    <h3>Prof. Laura Pérez</h3>
+                                    <p class="announcement-time">Hace 2 horas</p>
+                                </div>
+                            </div>
+                            <p>Recordatorio: El examen parcial será el próximo viernes. Por favor revisen los temas cubiertos.</p>
+                        </li>
+                        <li>
+                            <div class="announcement-header">
+                                <img src="images/professor2.jpg" alt="Profesor">
+                                <div>
+                                    <h3>Prof. Carlos Gómez</h3>
+                                    <p class="announcement-time">Ayer</p>
+                                </div>
+                            </div>
+                            <p>He subido los recursos adicionales para el tema de la Revolución Francesa.</p>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
