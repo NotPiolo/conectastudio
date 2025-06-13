@@ -1,37 +1,67 @@
-// Configuración de Firebase (reemplaza con tus propios datos)
+// Configuración de Firebase (tus datos son correctos)
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO.firebaseapp.com",
-    projectId: "TU_PROYECTO",
-    storageBucket: "TU_PROYECTO.appspot.com",
-    messagingSenderId: "TU_SENDER_ID",
-    appId: "TU_APP_ID"
+  apiKey: "AIzaSyD0Hk8OWrqJroj5vwvxsjRbmRwlgKlXNbU",
+  authDomain: "conectastudio-f6f25.firebaseapp.com",
+  projectId: "conectastudio-f6f25",
+  storageBucket: "conectastudio-f6f25.firebasestorage.app",
+  messagingSenderId: "147811460785",
+  appId: "1:147811460785:web:08a9c5e6b543d6bc7a2490",
+  measurementId: "G-60ZEJK1LMM"
 };
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Configuración de FirebaseUI
+// Configuración mejorada de FirebaseUI
 const uiConfig = {
-    signInSuccessUrl: 'dashboard.html',
-    signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    ],
-    tosUrl: '<your-tos-url>',
-    privacyPolicyUrl: '<your-privacy-policy-url>'
+  signInSuccessUrl: 'https://notpiolo.github.io/conectastudio/dashboard.html',
+  signInOptions: [
+    {
+      provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      customParameters: {
+        prompt: 'select_account'
+      }
+    }
+  ],
+  credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+  callbacks: {
+    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+      // Redirigir manualmente para mayor control
+      window.location.assign('https://notpiolo.github.io/conectastudio/dashboard.html');
+      return false; // Evitar redirección automática
+    },
+    uiShown: function() {
+      document.getElementById('loader').style.display = 'none';
+    }
+  },
+  tosUrl: 'https://notpiolo.github.io/conectastudio/terms',
+  privacyPolicyUrl: 'https://notpiolo.github.io/conectastudio/privacy'
 };
 
-// Inicializar FirebaseUI
-const ui = new firebaseui.auth.AuthUI(firebase.auth());
+// Inicializar FirebaseUI solo una vez
+let ui = new firebaseui.auth.AuthUI(firebase.auth());
+if (ui.isPendingRedirect()) {
+  ui.start('#firebaseui-auth-container', uiConfig);
+}
 
-// Manejar el estado de autenticación
+// Manejo mejorado del estado de autenticación
 firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-        // Usuario autenticado, redirigir al dashboard
-        window.location.href = 'dashboard.html';
-    } else {
-        // Mostrar el widget de autenticación
-        ui.start('#firebaseui-auth-container', uiConfig);
-        document.getElementById('loader').style.display = 'none';
+  const authContainer = document.getElementById('firebaseui-auth-container');
+  const loader = document.getElementById('loader');
+  
+  if (user) {
+    // Usuario autenticado
+    authContainer.style.display = 'none';
+    loader.style.display = 'none';
+    window.location.href = 'https://notpiolo.github.io/conectastudio/dashboard.html';
+  } else {
+    // Mostrar interfaz de login
+    authContainer.style.display = 'block';
+    loader.style.display = 'none';
+    
+    // Inicializar UI solo si no está ya mostrándose
+    if (!ui.isPendingRedirect()) {
+      ui.start('#firebaseui-auth-container', uiConfig);
     }
+  }
 });
