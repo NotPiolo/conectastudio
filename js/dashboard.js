@@ -1,3 +1,4 @@
+// Configuración de Firebase (debe coincidir con auth.js)
 const firebaseConfig = {
   apiKey: "AIzaSyD0Hk8OWrqJroj5vwvxsjRbmRwlgKlXNbU",
   authDomain: "conectastudio-f6f25.firebaseapp.com",
@@ -9,44 +10,30 @@ const firebaseConfig = {
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
+const basePath = window.location.hostname === 'localhost' ? '' : '/conectastudio';
 
-// Configuración mejorada de FirebaseUI
-const uiConfig = {
-  signInSuccessUrl: window.location.origin + '/conectastudio/dashboard.html',
-  signInOptions: [
-    {
-      provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      customParameters: {
-        prompt: 'select_account'
-      }
-    }
-  ],
-  callbacks: {
-    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-      // Verificar autenticación
-      if (authResult.user) {
-        console.log('Usuario autenticado:', authResult.user.email);
-        // Redirigir manualmente
-        window.location.href = window.location.origin + '/conectastudio/dashboard.html';
-      }
-      return false; // Evitar redirección automática
-    },
-    uiShown: function() {
-      document.getElementById('loader').style.display = 'none';
-    }
-  }
-};
-
-// Inicializar FirebaseUI
-const ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-// Manejar estado de autenticación
+// Mostrar datos del usuario
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('Redirigiendo usuario autenticado...');
-    window.location.href = window.location.origin + '/conectastudio/dashboard.html';
+    // Actualizar perfil del usuario
+    document.getElementById('user-avatar').src = user.photoURL || './images/default-avatar.png';
+    document.getElementById('user-name').textContent = user.displayName || 'Usuario';
+    document.getElementById('dashboard-title').textContent = `Bienvenido, ${user.displayName?.split(' ')[0] || 'Usuario'}`;
+    
+    // Aquí puedes cargar más datos del usuario desde Firestore si es necesario
   } else {
-    ui.start('#firebaseui-auth-container', uiConfig);
-    document.getElementById('loader').style.display = 'none';
+    // Redirigir a login si no está autenticado
+    window.location.href = `${basePath}/login.html`;
   }
 });
+
+// Cerrar sesión
+document.getElementById('sign-out').addEventListener('click', () => {
+  firebase.auth().signOut().then(() => {
+    window.location.href = './login.html';
+  }).catch((error) => {
+    console.error('Error al cerrar sesión:', error);
+  });
+});
+
+// Aquí puedes añadir más lógica para cargar materias, tareas, etc.
