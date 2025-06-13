@@ -1,13 +1,14 @@
 // Configuración de Firebase (tus datos son correctos)
 const firebaseConfig = {
-  apiKey: "AIzaSyD0Hk8OWrqJroj5vwvxsjRbmRwlgKlXNbU",
+  apiKey: "AIzaSyD0Hk8OWrqJroj5vwvxsjRbmRwlgKlXNbU", // Usa la clave correcta
   authDomain: "conectastudio-f6f25.firebaseapp.com",
   projectId: "conectastudio-f6f25",
-  storageBucket: "conectastudio-f6f25.firebasestorage.app",
+  storageBucket: "conectastudio-f6f25.appspot.com", // Corregí esto
   messagingSenderId: "147811460785",
-  appId: "1:147811460785:web:08a9c5e6b543d6bc7a2490",
-  measurementId: "G-60ZEJK1LMM"
+  appId: "1:147811460785:web:08a9c5e6b543d6bc7a2490"
 };
+
+// Elimina measurementId si no usas Analytics
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
